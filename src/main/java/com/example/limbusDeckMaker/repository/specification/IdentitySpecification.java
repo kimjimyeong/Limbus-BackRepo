@@ -43,7 +43,7 @@ public class IdentitySpecification {
             if (affiliations == null || affiliations.isEmpty()) {
                 return null;
             }
-            return root.get("grade").in(affiliations);
+            return root.get("affiliation").in(affiliations);
         };
     }
 }
