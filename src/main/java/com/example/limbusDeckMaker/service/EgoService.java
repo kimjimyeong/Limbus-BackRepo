@@ -17,6 +17,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+/**
+ * Ego와 관련된 로직을 처리하는 서비스 클래스
+ */
 @Slf4j
 @Service
 public class EgoService {
@@ -27,11 +30,17 @@ public class EgoService {
         this.egoRepository = egoRepository;
     }
 
+    /**
+     * 특정 ID에 해당하는 Ego의 상세 정보를 조회
+     */
     public Optional<EgoDetailInfoDto> getSpecificEgo(Long id) {
         return egoRepository.findById(id)
             .map(EgoDetailInfoDto::toDto);
     }
 
+    /**
+     * 다양한 검색 조건을 통해 Ego 목록을 조회
+     */
     public List<EgoListInfoDto> getEgoByCriteria(List<String> sinnerNames, List<Integer> seasons, List<String> grades,
         List<String> keywords, List<String> resources, List<String> types, Integer minWeight,
         Integer maxWeight) {
@@ -48,6 +57,8 @@ public class EgoService {
         }
 
         List<Ego> egos = egoRepository.findAll(spec);
+
+        // EgoContext를 활용하여 추가적인 정보를 계산
         List<EgoContext> egoContexts = egos.stream()
             .map(ego -> new EgoContext(ego,
                 findUseResources(ego),
@@ -67,6 +78,9 @@ public class EgoService {
         return results;
     }
 
+    /**
+     * 선택된 Ego들의 빌드 정보를 조회
+     */
     public Optional<EgoBuildInfoDto> getEgoBuildInfo(List<Long> egoIds){
         List<Ego> egos = egoRepository.findByIdIn(egoIds);
 
@@ -89,6 +103,9 @@ public class EgoService {
         return Optional.of(EgoBuildInfoDto.toDto(characterName, dtoEgos));
     }
 
+    /**
+     * EgoContext를 활용하여 keyword 필터링을 수행
+     */
     private boolean matchesKeywords(EgoContext context, List<String> keywords) {
         if (keywords == null || keywords.isEmpty()) {
             return true;

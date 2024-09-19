@@ -17,9 +17,12 @@ import com.example.limbusDeckMaker.repository.specification.IdentitySpecificatio
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 public class IdentityService {
 
@@ -39,6 +42,7 @@ public class IdentityService {
         List<String> affiliations, List<String> keywords, List<String> resources, List<String> types,
         Integer minWeight, Integer maxWeight, Integer minSpeed, Integer maxSpeed) {
 
+
         Specification<Identity> spec = Specification.where(null);
 
         if (sinnerNames != null) {
@@ -51,6 +55,8 @@ public class IdentityService {
             spec = spec.and(IdentitySpecification.hasGrades(grades));
         }
         if (affiliations != null) {
+            log.info("log -> : {}", affiliations.get(0));
+            log.info("TEST");
             spec = spec.and(IdentitySpecification.hasAffiliations(affiliations));
         }
 

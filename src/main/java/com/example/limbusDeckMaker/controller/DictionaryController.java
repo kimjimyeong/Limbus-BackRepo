@@ -23,11 +23,23 @@ public class DictionaryController {
     private final EgoService egoService;
     private final IdentityService identityService;
 
+    /**
+     * EgoService와 IdentityService를 주입받는 생성자
+     *
+     * @param egoService      에고 관련 서비스
+     * @param identityService 인격 관련 서비스
+     */
     public DictionaryController(EgoService egoService, IdentityService identityService) {
         this.egoService = egoService;
         this.identityService = identityService;
     }
 
+    /**
+     * 특정 ID에 해당하는 에고의 상세 정보를 조회
+     *
+     * @param id 에고의 ID
+     * @return 에고의 상세 정보
+     */
     @GetMapping("/ego/{id}")
     public ResponseEntity<EgoDetailInfoDto> searchEgoById(@PathVariable("id") Long id) {
         return egoService.getSpecificEgo(id)
@@ -35,6 +47,12 @@ public class DictionaryController {
                 .orElseThrow(() -> new NoEgoFoundException("해당 ID를 가진 에고가 없습니다."));
     }
 
+    /**
+     * 특정 ID에 해당하는 인격의 상세 정보를 조회
+     *
+     * @param id 인격의 ID
+     * @return 인격의 상세 정보
+     */
     @GetMapping("/identity/{id}")
     public ResponseEntity<IdentityDetailInfoDto> searchIdentityById(@PathVariable("id") Long id) {
         return identityService.getSpecificIdentity(id)
@@ -42,6 +60,19 @@ public class DictionaryController {
                 .orElseThrow(() -> new NoIdentityFoundException("해당 ID를 가진 인격이 없습니다."));
     }
 
+    /**
+     * 다양한 검색 조건을 통해 에고 목록을 조회
+     *
+     * @param names     죄인 이름 목록 (옵션)
+     * @param seasons   시즌 목록 (옵션)
+     * @param grades    등급 목록 (옵션)
+     * @param keywords  키워드 목록 (옵션)
+     * @param resources 자원 목록 (옵션)
+     * @param types     타입 목록 (옵션)
+     * @param minWeight 최소 무게 (옵션)
+     * @param maxWeight 최대 무게 (옵션)
+     * @return 에고 목록
+     */
     @GetMapping("/ego")
     public ResponseEntity<List<EgoListInfoDto>> searchEgosByCriteria(
         @RequestParam(value = "sinner", required = false) List<String> names,
@@ -62,6 +93,22 @@ public class DictionaryController {
         return ResponseEntity.ok(results);
     }
 
+    /**
+     * 다양한 검색 조건을 통해 인격 목록을 조회
+     *
+     * @param names       죄인 이름 목록 (옵션)
+     * @param seasons     시즌 목록 (옵션)
+     * @param grades      등급 목록 (옵션)
+     * @param affiliations 소속 목록 (옵션)
+     * @param keywords    키워드 목록 (옵션)
+     * @param resources   자원 목록 (옵션)
+     * @param types       타입 목록 (옵션)
+     * @param minWeight   최소 무게 (옵션)
+     * @param maxWeight   최대 무게 (옵션)
+     * @param minSpeed    최소 속도 (옵션)
+     * @param maxSpeed    최대 속도 (옵션)
+     * @return 인격 목록
+     */
     @GetMapping("/identity")
     public ResponseEntity<List<IdentityListInfoDto>> searchIdentitiesByCriteria(
         @RequestParam(value = "sinner", required = false) List<String> names,

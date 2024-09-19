@@ -7,6 +7,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * Ego의 추가적인 정보를 담는 컨텍스트 클래스
+ * 필터링과 매핑 과정에서 효율성을 높이기 위해 사용
+ */
 @Getter
 @Setter
 @AllArgsConstructor

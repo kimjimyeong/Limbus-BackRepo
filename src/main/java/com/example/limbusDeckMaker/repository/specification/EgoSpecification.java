@@ -8,8 +8,14 @@ import org.springframework.data.jpa.domain.Specification;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Ego 엔티티에 대한 동적 쿼리를 생성하는 클래스
+ */
 public class EgoSpecification {
 
+    /**
+     * Sinner 이름 목록에 해당하는 Ego를 조회
+     */
     public static Specification<Ego> hasSinnerNames(List<String> sinnerNames) {
         return (root, query, cb) -> {
             if (sinnerNames == null || sinnerNames.isEmpty()) {
@@ -20,7 +26,10 @@ public class EgoSpecification {
         };
     }
 
-        public static Specification<Ego> hasSeasons(List<Integer> seasons) {
+    /**
+     * Season 목록에 해당하는 Ego를 조회
+     */
+    public static Specification<Ego> hasSeasons(List<Integer> seasons) {
             return (Root<Ego> root, CriteriaQuery<?> query, CriteriaBuilder cb) -> {
             if (seasons == null || seasons.isEmpty()) {
                 return null;
@@ -29,6 +38,9 @@ public class EgoSpecification {
         };
     }
 
+    /**
+     * Grade 목록에 해당하는 Ego를 조회
+     */
     public static Specification<Ego> hasGrades(List<String> grades) {
         return (Root<Ego> root, CriteriaQuery<?> query, CriteriaBuilder cb) -> {
             if (grades == null || grades.isEmpty()) {

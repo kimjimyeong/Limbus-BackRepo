@@ -14,6 +14,9 @@ import java.security.GeneralSecurityException;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * YouTube API를 통해 영상 정보를 가져오는 서비스 클래스
+ */
 @Slf4j
 @Service
 public class YouTubeService {
@@ -24,6 +27,9 @@ public class YouTubeService {
     @Value("${youtube.api.key}")
     private String apiKey;
 
+    /**
+     * 특정 채널의 최신 영상 ID를 가져옴
+     */
     public String getLatestVideoByChannel() throws GeneralSecurityException, IOException {
 
         String channelId = "UCpqyr6h4RCXCEswHlkSjykA";

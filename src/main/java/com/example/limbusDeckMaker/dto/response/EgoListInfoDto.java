@@ -6,6 +6,11 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * Ego 목록 정보를 담는 DTO 클래스
+ * Entity를 직접 반환하지 않고 DTO로 변환하여 사용하는 이유는 캡슐화와 보안 때문
+ * Entity의 내부 구조를 외부에 노출시키지 않고 필요한 정보만 전달하기 위해 toDto 메서드 사용
+ */
 @Getter
 @Setter
 @Builder
